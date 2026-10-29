@@ -1,0 +1,27 @@
+media:
+  input: docs/images
+  output: /images
+content:
+  - name: blog
+    label: 개발 일지
+    type: collection
+    path: docs/blog/posts
+    filename: "{year}-{month}-{day}-{primary}.md"
+    fields:
+      - { name: title, label: 제목, type: string, required: true }
+      - { name: date, label: 날짜, type: date, required: true }
+      - { name: body, label: 본문, type: rich-text }
+  - name: start
+    label: 시작하기 문서
+    type: collection
+    path: docs/start
+    fields:
+      - { name: title, label: 제목, type: string }
+      - { name: body, label: 본문, type: rich-text }
+  - name: episodes
+    label: 회차 문서
+    type: collection
+    path: docs/episodes
+    fields:
+      - { name: title, label: 제목, type: string }
+      - { name: body, label: 본문, type: rich-text }

@@ -1,0 +1,245 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>시험대 연결 근거표</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 레이아웃: 데이터시트처럼 흰 도면 시트를 차례로 쌓음. 시트 = 회로도 + 타이틀 블록 + 핀 설명표. 페이지 바탕만 테마를 따르고 도면은 종이색 고정 */
+:root{--bg:#e9ecee;--ink:#1a2229;--ink2:#56626c;--rule:#cfd5da;--paper:#ffffff;--acc:#1d5f8a;
+  --A:#2c7a46;--Abg:#e5f3ea;--B:#1d5f8a;--Bbg:#e3eef6;--C:#a9600f;--Cbg:#fbefdc;--D:#6b6f76;--Dbg:#eceef0;
+  --sans:"IBM Plex Sans KR",system-ui,"Malgun Gothic",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#101417;--ink:#e3e9ed;--ink2:#9aa8b2;--rule:#2c3740;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101417;--ink:#e3e9ed;--ink2:#9aa8b2;--rule:#2c3740;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+.wrap{max-width:1240px;margin:0 auto;padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-size:28px;margin:0 0 2px;text-wrap:balance}
+.lead{color:var(--ink2);max-width:82ch;margin:0 0 14px}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+.toc a{font-size:13px;color:var(--acc);text-decoration:none;border:1px solid var(--rule);padding:3px 10px;border-radius:999px;background:transparent}
+.sheet{background:#fff;color:#111;border:1px solid #c9cdd1;box-shadow:0 1px 0 rgba(0,0,0,.04);margin:0 0 22px;scroll-margin-top:10px}
+.sheet .hd{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline;border-bottom:2px solid #111;padding:10px 14px 6px}
+.sheet .hd h2{font-size:18px;margin:0;color:#111}
+.sheet .hd span{font-family:var(--mono);font-size:12px;color:#555}
+.sv{overflow-x:auto;padding:6px}
+.sv svg{display:block;height:auto}
+details{border-top:1px solid #d6dadd;padding:8px 14px 12px}
+summary{cursor:pointer;font-size:14px;font-weight:500;color:#111}
+.tw{overflow-x:auto;margin-top:8px}
+table{border-collapse:collapse;width:100%;min-width:820px;font-size:12.5px;color:#111}
+th,td{text-align:left;padding:5px 7px;border:1px solid #d6dadd;vertical-align:top}
+th{background:#f1f3f4;font-weight:500;font-size:12px}
+td.m{font-family:var(--mono);font-size:12px;white-space:nowrap}
+.lv{display:inline-block;font-family:var(--mono);font-size:11.5px;font-weight:600;border-radius:3px;padding:0 5px;line-height:18px}
+.lv.A{color:#2c7a46;background:#e5f3ea}.lv.B{color:#1d5f8a;background:#e3eef6}.lv.C{color:#a9600f;background:#fbefdc}.lv.D{color:#5f6368;background:#eceef0}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin:0 0 8px}
+.legend div{border:1px solid var(--rule);border-radius:6px;padding:7px 10px;font-size:13px;min-width:0}
+.src{font-size:11.5px;color:#555;display:block}
+.srcs li{margin:4px 0;overflow-wrap:anywhere}.srcs a{color:var(--acc);overflow-wrap:anywhere}
+h2.sec{font-size:20px;margin:26px 0 8px}
+</style>
+
+<div class="wrap">
+<h1>시험대 연결 근거표</h1>
+<p class="lead">데이터시트 회로도처럼 부품마다 핀을 그리고, 같은 넷은 선으로 잇거나 같은 이름의 넷 라벨로 표시했어요. 시트 아래 "핀 설명표"를 열면 핀마다 연결 대상과 데이터시트 근거, 확인 등급이 나와요. 3D 조립 가이드와 같은 결선 데이터(153가닥)로 그렸어요.</p>
+<div class="legend">
+ <div><span class="lv A">A</span> 원문 확인 · 매뉴얼·제품 페이지 원문과 직접 대조</div>
+ <div><span class="lv B">B</span> 공식 문서 기준 · 원문 표 대조 전, CubeMX·매뉴얼로 재확인</div>
+ <div><span class="lv C">C</span> 추정 · 모듈마다 순서·표기가 달라 실물 실크 확인</div>
+ <div><span class="lv D">D</span> 설계 결정 · 전원 분배·2x5 표준 단자처럼 직접 정한 연결</div>
+</div>
+<p class="lead" style="font-size:13px">읽는 법: 핀 끝의 깃발 모양은 넷 라벨이에요. 이름이 같은 라벨끼리는 다른 시트에 있어도 전기적으로 연결돼 있어요. ⏚ 는 GND, ┬ 는 전원 레일이에요.</p>
+<nav class="toc" id="toc"></nav>
+<div id="sheets"></div>
+<h2 class="sec">케이블 (판 밖 연결)</h2>
+<div class="tw"><table id="cables"></table></div>
+<h2 class="sec">출처</h2>
+<ol class="srcs" id="srcs"></ol>
+</div>
+
+<script>
+var WIRES=[
+// ── 연구소 전원
+['l-power:J5+','l-power:FIN','w5','5V 잭 + → 퓨즈홀더'],['l-power:FOUT','l-tb:L1','w5','퓨즈 2A → T1'],['l-power:J5-','l-tb:L5','wg','5V 잭 −'],
+['l-power:J12+','l-tb:L10','w12','12V 잭 +'],['l-power:J12-','l-tb:L9','wg','12V 잭 −'],
+['l-tb:L1','l-tb:L2','w5','단자대 점퍼'],['l-tb:L2','l-tb:L3','w5','단자대 점퍼'],['l-tb:L3','l-tb:L4','w5','단자대 점퍼'],
+['l-tb:L5','l-tb:L6','wg','단자대 점퍼'],['l-tb:L6','l-tb:L7','wg','단자대 점퍼'],['l-tb:L7','l-tb:L8','wg','단자대 점퍼'],['l-tb:L8','l-tb:L9','wg','단자대 점퍼 (12V GND 공통)'],
+['l-tb:R1','l-relay4:COM1','w5','DUT 전원 입력'],['l-tb:R2','l-relay4:DC+','w5','릴레이 코일 전원'],['l-tb:R5','l-relay4:DC-','wg','릴레이 GND'],
+['l-tb:R6','l-f746:GNDd','wg','F746 공통 접지'],['l-tb:R7','l-j2:A2','wg','DUT GND'],['l-tb:R9','l-d4184:P-','wg','모터 전원 −'],['l-tb:R10','l-relay4:COM2','w12','모터 12V 입력'],
+['l-relay4:NO1','l-ina226:IN+','w5','NO = 평소 끊김'],['l-ina226:IN-','l-j2:A1','w5','DUT 5V'],['l-ina226:VBS','l-ina226:IN-','w5','버스 전압 측정 점퍼'],
+['l-relay4:NO2','l-d4184:P+','w12','모터 12V'],['l-relay4:NO2','l-ina240:S1','w12','나사 하나에 2가닥'],
+['l-ina240:S2','l-motor:M+','w12','션트 → 모터 +'],['l-motor:M-','l-d4184:LOAD','wg','모터 − → LOAD'],
+['l-ina240:IN+','l-ina240:S1','ws','켈빈 접속 (션트 다리에 직접)'],['l-ina240:IN-','l-ina240:S2','ws','켈빈 접속 (션트 다리에 직접)'],
+// ── 연구소 신호 (F746)
+['l-f746:D7','l-relay4:IN1','ws','PI3 → DUT 전원 릴레이'],['l-f746:D8','l-relay4:IN2','ws','PI2 → 모터 전원 릴레이'],
+['l-f746:3V3','l-ina226:VCC','w3','INA226 전원'],['l-f746:GND','l-ina226:GND','wg','INA226 GND'],
+['l-f746:D14','l-ina226:SDA','ws','PB9 I2C1_SDA'],['l-f746:D15','l-ina226:SCL','ws','PB8 I2C1_SCL'],
+['l-f746:D2','l-j2:A3','ws','PG6 → NRST (오픈드레인)'],['l-f746:D4','l-j2:A4','ws','PG7 → BOOT0 (1kΩ 거침)'],
+['l-j2:A7','l-f746:D0','ws','DUT TX → PC7 USART6_RX'],['l-f746:D1','l-j2:A8','ws','PC6 USART6_TX → DUT RX (1kΩ)'],
+['l-canable:H','l-j2:A9','wh','CANH'],['l-canable:L','l-j2:A10','wl','CANL'],
+['l-j2:HDR','l-j1:HDR','rb','시험대 J2 ↔ DUT J1'],
+// ── 연구소 DUT
+['l-j1:A1','l-dut:CN7-6','w5','E5V (JP5 [5-6])'],['l-j1:A2','l-dut:CN7-8','wg','GND'],['l-j1:A3','l-dut:CN7-14','ws','NRST'],['l-j1:A4','l-dut:CN10-3','ws','PB8 = BOOT0'],
+['l-dut:CN10-21','l-j1:A7','ws','PA9 USART1_TX'],['l-j1:A8','l-dut:CN10-33','ws','PA10 USART1_RX'],
+['l-j1:A9','l-canpal:H','wh','CANH'],['l-j1:A10','l-canpal:L','wl','CANL'],
+['l-dut:CN7-16','l-canpal:VCC','w3','3.3V'],['l-dut:CN7-19','l-canpal:GND','wg','GND'],['l-dut:CN10-12','l-canpal:TX','ws','PA12 FDCAN1_TX'],['l-canpal:RX','l-dut:CN10-14','ws','PA11 FDCAN1_RX'],
+['l-dut:CN10-23','l-d4184:PWM','ws','PA8 TIM1_CH1'],['l-dut:CN7-22','l-d4184:SG','wg','D4184 신호 GND'],
+['l-ina240:OUT','l-dut:CN7-28','ws','PA0 ADC'],['l-dut:CN6-4','l-ina240:VCC','w3','3.3V (Arduino 전원 헤더)'],['l-dut:CN7-20','l-ina240:GND','wg','GND'],
+['l-la:CH0','l-j1:B7','ws','훅 클립 · TX'],['l-la:CH1','l-j1:B8','ws','훅 클립 · RX'],['l-la:CH2','l-j1:B3','ws','훅 클립 · NRST'],['l-la:CH3','l-j1:B4','ws','훅 클립 · BOOT0'],['l-la:GND','l-j1:B2','wg','훅 클립 · GND'],
+['l-f746:USB','o-hub:P0','wu','F746 ST-LINK'],['l-dut:USB','o-hub:P1','wu','DUT ST-LINK'],['l-canable:USB','o-hub:P2','wu','CANable'],['l-la:USB','o-hub:P3','wu','로직분석기'],['l-stlink:USB','o-hub:P4','wu','STLINK-V3SET'],
+['o-strip:O3','l-power:PLUG5','wd','5V 3A 어댑터'],['o-strip:O4','l-power:PLUG12','wd','12V 2A 어댑터'],['o-strip:O2','o-hub:PWR','wd','허브 어댑터'],
+// ── 현장 전원
+['f-power:J5+','f-power:FIN','w5','5V 잭 + → 퓨즈홀더'],['f-power:FOUT','f-tb:L1','w5','퓨즈 2A → T1'],['f-power:J5-','f-tb:L5','wg','5V 잭 −'],
+['f-power:J12+','f-tb:L10','w12','12V 잭 +'],['f-power:J12-','f-tb:L9','wg','12V 잭 −'],
+['f-tb:L1','f-tb:L2','w5','단자대 점퍼'],['f-tb:L2','f-tb:L3','w5','단자대 점퍼'],['f-tb:L3','f-tb:L4','w5','단자대 점퍼'],
+['f-tb:L5','f-tb:L6','wg','단자대 점퍼'],['f-tb:L6','f-tb:L7','wg','단자대 점퍼'],['f-tb:L7','f-tb:L8','wg','단자대 점퍼'],['f-tb:L8','f-tb:L9','wg','단자대 점퍼'],
+['f-tb:R1','f-h743:JK+','w5','DC 수 플러그 + → CN10'],['f-tb:R5','f-h743:JK-','wg','DC 수 플러그 −'],
+['f-tb:R2','f-relay2:COM1','w5','노드 전원 입력'],['f-relay2:COM1','f-relay2:COM2','w5','COM 점퍼'],
+['f-tb:R3','f-relay2:DC+','w5','릴레이 코일 전원'],['f-tb:R7','f-relay2:DC-','wg','릴레이 GND'],
+['f-tb:R4','f-f103:CN7-6','w5','F103 E5V (항상 켜짐)'],['f-tb:R7','f-f103:CN7-8','wg','F103 GND'],
+['f-tb:R6','f-n1:CN7-8','wg','노드1 GND'],['f-tb:R6','f-n2:CN7-8','wg','노드2 GND'],
+['f-tb:R9','f-d4184:P-','wg','모터 전원 −'],['f-tb:R10','f-d4184:P+','w12','모터 12V'],['f-tb:R10','f-ina240:S1','w12','나사 하나에 2가닥'],
+['f-ina240:S2','f-motor:M+','w12','션트 → 모터 +'],['f-motor:M-','f-d4184:LOAD','wg','모터 − → LOAD'],
+['f-ina240:IN+','f-ina240:S1','ws','켈빈 접속'],['f-ina240:IN-','f-ina240:S2','ws','켈빈 접속'],
+['f-relay2:NC1','f-ina1:IN+','w5','NC = 평소 연결'],['f-ina1:IN-','f-n1:CN7-6','w5','노드1 E5V'],['f-ina1:VBS','f-ina1:IN-','w5','버스 전압 측정 점퍼'],
+['f-relay2:NC2','f-ina2:IN+','w5','NC = 평소 연결'],['f-ina2:IN-','f-n2:CN7-6','w5','노드2 E5V'],['f-ina2:VBS','f-ina2:IN-','w5','버스 전압 측정 점퍼'],
+['f-n2:CN7-35','f-relay2:IN1','ws','PC2 → 노드1 리셋'],['f-n1:CN7-34','f-relay2:IN2','ws','PB0 → 노드2 리셋'],
+// ── 노드1
+['f-n1:CN6-4','f-ina1:VCC','w3','3.3V (Arduino 전원 헤더)'],['f-n1:CN7-20','f-ina1:GND','wg','GND'],['f-n1:CN7-17','f-ina1:SCL','ws','PA15 I2C1_SCL'],['f-n1:CN7-21','f-ina1:SDA','ws','PB7 I2C1_SDA'],
+['f-n1:CN7-16','f-cp1:VCC','w3','3.3V'],['f-n1:CN7-19','f-cp1:GND','wg','GND'],['f-n1:CN10-12','f-cp1:TX','ws','PA12 FDCAN1_TX'],['f-cp1:RX','f-n1:CN10-14','ws','PA11 FDCAN1_RX'],
+['f-n1:CN10-23','f-d4184:PWM','ws','PA8 TIM1_CH1'],['f-n1:CN7-22','f-d4184:SG','wg','D4184 신호 GND'],
+['f-ina240:OUT','f-n1:CN7-28','ws','PA0 ADC'],['f-n1:CN7-5','f-ina240:VCC','w3','VDD 3.3V'],['f-n1:CN10-9','f-ina240:GND','wg','GND'],
+// ── 노드2
+['f-n2:CN6-4','f-ina2:VCC','w3','3.3V (Arduino 전원 헤더)'],['f-n2:CN7-20','f-ina2:GND','wg','GND'],['f-n2:CN7-17','f-ina2:SCL','ws','PA15 I2C1_SCL'],['f-n2:CN7-21','f-ina2:SDA','ws','PB7 I2C1_SDA'],
+['f-oled:VCC','f-ina2:VCC','w3','INA226② 핀 뒷면에 같이 납땜'],['f-oled:GND','f-ina2:GND','wg','INA226② 핀 뒷면에 같이 납땜'],['f-oled:SCL','f-ina2:SCL','ws','I2C 병렬 (0x3C)'],['f-oled:SDA','f-ina2:SDA','ws','I2C 병렬 (0x3C)'],
+['f-n2:CN7-16','f-cp2:VCC','w3','3.3V'],['f-n2:CN7-19','f-cp2:GND','wg','GND'],['f-n2:CN10-12','f-cp2:TX','ws','PA12 FDCAN1_TX'],['f-cp2:RX','f-n2:CN10-14','ws','PA11 FDCAN1_RX'],
+['f-n2:CN7-34','f-btn:1a','ws','PB0 버튼①'],['f-n2:CN7-36','f-btn:2a','ws','PC1 버튼②'],['f-n2:CN10-9','f-btn:1b','wg','버튼 GND'],['f-btn:1b','f-btn:2b','wg','버튼 GND 점퍼'],
+// ── CAN 트렁크
+['f-db9a:7','f-cp1:H','wh','CANH (꼬임)'],['f-db9a:2','f-cp1:L','wl','CANL (꼬임)'],['f-db9a:3','f-cp1:G','wg','CAN GND'],
+['f-cp1:H','f-cp2:H','wh','같은 나사에 2가닥'],['f-cp1:L','f-cp2:L','wl','같은 나사에 2가닥'],['f-cp1:G','f-cp2:G','wg','같은 나사에 2가닥'],
+// ── F103 · RS-232
+['f-f103:CN10-21','f-max:TXD','ws','PA9 USART1_TX'],['f-max:RXD','f-f103:CN10-33','ws','PA10 USART1_RX'],['f-f103:CN7-16','f-max:VCC','w3','3.3V'],['f-f103:CN7-20','f-max:GND','wg','GND'],
+['f-max:RTX','f-db9b:2','ws','RS-232 → EVAL RS232_RX'],['f-max:RRX','f-db9b:3','ws','EVAL RS232_TX → RS-232'],['f-max:RG','f-db9b:5','wg','RS-232 GND'],
+['f-h743:RJ45','o-router:LAN','wn','LAN 1m'],
+['o-strip:O0','f-power:PLUG5','wd','5V 4A 어댑터'],['o-strip:O1','f-power:PLUG12','wd','12V 2A 어댑터']
+];
+var NAME={'l-power':'전원 입구 (연구소)','l-tb':'단자대 12P (연구소)','l-relay4':'릴레이 4ch HK4100F','l-ina226':'INA226 모듈 (DUT 전류)','l-j2':'J2 어댑터 (시험대)','l-j1':'J1 어댑터 (DUT)','l-f746':'STM32F746G-DISCO','l-dut':'NUCLEO-G474RE (DUT)','l-canpal':'CAN Pal TJA1051T/3','l-stlink':'STLINK-V3SET','l-canable':'CANable 2.0','l-d4184':'D4184 MOSFET','l-ina240':'INA240 모듈 + 션트 20mΩ','l-motor':'JGA25-370 12V 모터','l-la':'로직분석기 8ch',
+'f-power':'전원 입구 (현장)','f-tb':'단자대 12P (현장)','f-relay2':'릴레이 2ch HK4100F','f-ina1':'INA226 모듈 ①','f-ina2':'INA226 모듈 ②','f-h743':'STM32H743I-EVAL','f-db9a':'DB9 단자 어댑터 #1','f-db9b':'DB9 단자 어댑터 #2','f-max':'MAX3232 모듈','f-cp1':'CAN Pal ①','f-cp2':'CAN Pal ②','f-n1':'NUCLEO-G474RE (노드1)','f-n2':'NUCLEO-G474RE (노드2)','f-oled':'OLED SSD1306','f-btn':'택트 버튼 ×2','f-f103':'NUCLEO-F103RB','f-d4184':'D4184 MOSFET','f-ina240':'INA240 모듈 + 션트 50mΩ','f-motor':'JGA25-370 12V 모터','o-hub':'USB 허브','o-strip':'멀티탭','o-router':'공유기'};
+var REF={'l-power':'J1','l-tb':'TB1','l-relay4':'K1','l-ina226':'U2','l-j2':'J2','l-j1':'J3','l-f746':'U1','l-dut':'U3','l-canpal':'U4','l-canable':'U5','l-d4184':'Q1','l-ina240':'U6','l-motor':'M1','l-la':'U7',
+'f-power':'J11','f-tb':'TB11','f-relay2':'K11','f-ina1':'U12','f-ina2':'U13','f-h743':'U11','f-db9a':'J12','f-db9b':'J13','f-max':'U18','f-cp1':'U14','f-cp2':'U15','f-n1':'U16','f-n2':'U17','f-oled':'U19','f-btn':'SW11','f-f103':'U20','f-d4184':'Q11','f-ina240':'U21','f-motor':'M11'};
+var SRC={S1:['UM2505 · NUCLEO-G474RE 사용자 매뉴얼 (JP5, ST morpho CN7/CN10 표)','https://st.com/resource/en/user_manual/um2505-getting-started-with-stm32g4-series-nucleo64-board-stmicroelectronics.pdf'],
+ S2:['UM2198 · STM32H743I-EVAL 사용자 매뉴얼 (CN10 전원, JP10, CN3 CAN, JP1/JP2, CN2 RS-232)','https://www.st.com/resource/en/user_manual/dm00385071-evaluation-boards-with-stm32h743xi-and-stm32h753xi-mcus-stmicroelectronics.pdf'],
+ S3:['UM1907 · STM32F746G-DISCO 사용자 매뉴얼 (Arduino 커넥터 표)','https://www.st.com/resource/en/user_manual/um1907-discovery-kit-for-stm32f7-series-with-stm32f746ng-mcu-stmicroelectronics.pdf'],
+ S4:['Adafruit CAN Pal (5708) 핀 설명','https://learn.adafruit.com/adafruit-can-pal/pinouts'],
+ S5:['D4184 MOSFET 모듈 설명 (유사 제품 페이지)','https://protosupplies.com/product/d4184-mosfet-control-module/'],
+ S6:['INA240 모듈 판매 페이지 (핀 정의)','https://ko.aliexpress.com/item/1005010169929858.html'],
+ S7:['HK4100F 릴레이 모듈 판매 페이지','https://ko.aliexpress.com/item/1005012766775640.html'],
+ S8:['STM32G474 데이터시트 AF 표 · STM32CubeMX 핀 배정','https://www.st.com/en/microcontrollers-microprocessors/stm32g474re.html'],
+ S9:['UM1724 · Nucleo-64 (MB1136, F103RB) 사용자 매뉴얼','https://www.st.com/resource/en/user_manual/um1724-stm32-nucleo64-boards-mb1136-stmicroelectronics.pdf'],
+ S10:['MAX3232 모듈 판매 페이지','https://ko.aliexpress.com/item/1005010400056016.html'],
+ S11:['TI INA240 데이터시트','https://ti.com/document-viewer/INA240/datasheet/GUID-A95D8916-9B73-40AC-AB4D-97E7A1E83901']};
+var SRCN=Object.keys(SRC);
+var MORPHO={'CN7-5':'VDD','CN7-6':'E5V','CN7-7':'BOOT0','CN7-8':'GND','CN7-14':'NRST','CN7-16':'3V3','CN7-17':'PA15','CN7-19':'GND','CN7-20':'GND','CN7-21':'PB7','CN7-22':'GND','CN7-28':'PA0','CN7-34':'PB0','CN7-35':'PC2','CN7-36':'PC1','CN10-3':'PB8','CN10-9':'GND','CN10-12':'PA12','CN10-14':'PA11','CN10-21':'PA9','CN10-23':'PA8','CN10-33':'PA10','CN6-4':'3V3'};
+var F746={D0:'PC7',D1:'PC6',D2:'PG6',D4:'PG7',D7:'PI3',D8:'PI2',D14:'PB9',D15:'PB8','3V3':'+3V3',GND:'GND',GNDd:'GND'};
+var PWRPIN=/^(CN7-(5|6|8|14|16|19|20|22)|CN10-9)$/;
+function ev(k){var s=k.split(':'),id=s[0],p=s[1];
+ if(/^(l-dut|f-n1|f-n2)$/.test(id)){var nm=MORPHO[p]||'';if(p==='CN6-4')return ['B','Arduino 전원 헤더 CN6-4 = +3V3 (UM2505 Arduino 표 대조 전)','S1'];if(PWRPIN.test(p))return ['A','UM2505 morpho 표: '+p+' = '+nm,'S1'];if(p==='CN10-3')return ['B','UM2505: CN10-3 = PB8, G474에서 PB8 = BOOT0','S1'];return ['B','UM2505: '+p+' = '+nm+' · 기능은 G474 AF 표 기준','S8']}
+ if(id==='f-f103')return ['B','Nucleo-64 morpho 공통 배치 (UM1724 대조 전)','S9'];
+ if(id==='l-f746')return ['A','UM1907 Arduino 표: '+p+' = '+(F746[p]||p)+' (헤더가 보드 아래쪽인지 실물 확인)','S3'];
+ if(id==='f-h743'){if(/^JK/.test(p))return ['A','UM2198: 전원잭 CN10 센터 +, JP10 = PSU','S2'];return ['A','UM2198','S2']}
+ if(id==='f-db9a')return ['A','UM2198 CN3: 7 = CANH, 2 = CANL, 3 = GND','S2'];
+ if(id==='f-db9b')return ['A','UM2198 CN2: 2 = RS232_RX, 3 = RS232_TX, 5 = GND','S2'];
+ if(/^(l-canpal|f-cp\d)$/.test(id))return ['A','Adafruit 핀 이름 '+p+' · Vcc = MCU 로직 전압','S4'];
+ if(/^(l-ina226|f-ina1|f-ina2)$/.test(id))return ['C','INA226 모듈 핀 (CJMCU-226 계열 일반 배치, 실크 확인)'];
+ if(/ina240/.test(id)){if(/^S\d$/.test(p))return ['D','외부 션트 다리'];return ['A','판매 페이지 핀 정의','S6']}
+ if(/d4184/.test(id))return ['B','D4184 단자 (유사 제품 기준, 실크 대조)','S5'];
+ if(/relay/.test(id)){if(/^(NO|NC|COM)\d$/.test(p))return ['A','릴레이 접점 (판매 페이지)','S7'];return ['C','릴레이 헤더 순서 (실크 확인)','S7']}
+ if(id==='f-max')return ['C','MAX3232 모듈 표기 (판매처마다 다름)','S10'];
+ if(id==='f-oled')return ['C','OLED 핀 순서 (제품마다 다름)'];
+ if(id==='l-canable')return ['C','CANable 단자 (실크 확인)'];
+ if(id==='l-la')return ['C','로직분석기 핀'];
+ return ['D','설계 결정']}
+var ORD='ABDC';function worst(a,b){return ORD.indexOf(a)>ORD.indexOf(b)?a:b}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function srcTag(e){return e[2]?' ['+(SRCN.indexOf(e[2])+1)+']':''}
+
+/* ── 넷 만들기 ── */
+var CABLE=/^(wu|wd|wn|rb)$/;
+function norm(k){return k.replace(/-tb:[LR](\d+)$/,'-tb:T$1')}
+var par={};function fd(x){while(par[x]!==x)x=par[x];return x}
+WIRES.forEach(function(w){if(CABLE.test(w[2]))return;var a=norm(w[0]),b=norm(w[1]);if(!par[a])par[a]=a;if(!par[b])par[b]=b;var ra=fd(a),rb=fd(b);if(ra!==rb)par[rb]=ra});
+var NETOF={},NETS={};Object.keys(par).forEach(function(k){var r=fd(k);(NETS[r]=NETS[r]||[]).push(k)});
+var PINNET={'l-f746:D7':'RLY_DUT_EN','l-f746:D8':'RLY_MOT_EN','l-f746:D14':'I2C1_SDA','l-f746:D15':'I2C1_SCL','l-j2:A3':'DUT_NRST','l-j1:A3':'DUT_NRST','l-j1:B3':'DUT_NRST','l-j2:A4':'DUT_BOOT0','l-j1:A4':'DUT_BOOT0','l-j1:B4':'DUT_BOOT0','l-j2:A7':'DUT_TX','l-j1:A7':'DUT_TX','l-j1:B7':'DUT_TX','l-j2:A8':'DUT_RX','l-j1:A8':'DUT_RX','l-j1:B8':'DUT_RX','l-j2:A9':'CAN_H','l-j1:A9':'CAN_H','l-j2:A10':'CAN_L','l-j1:A10':'CAN_L',
+'l-dut:CN10-12':'FDCAN1_TX','l-dut:CN10-14':'FDCAN1_RX','l-dut:CN10-23':'MOT_PWM','l-dut:CN7-28':'MOT_ISENSE','f-n1:CN10-12':'N1_FDCAN_TX','f-n1:CN10-14':'N1_FDCAN_RX','f-n1:CN10-23':'MOT_PWM','f-n1:CN7-28':'MOT_ISENSE','f-n1:CN7-17':'N1_I2C_SCL','f-n1:CN7-21':'N1_I2C_SDA','f-n1:CN7-34':'N2_RESET','f-n2:CN7-35':'N1_RESET','f-n2:CN10-12':'N2_FDCAN_TX','f-n2:CN10-14':'N2_FDCAN_RX','f-n2:CN7-17':'N2_I2C_SCL','f-n2:CN7-21':'N2_I2C_SDA','f-n2:CN7-34':'BTN1','f-n2:CN7-36':'BTN2','f-db9a:7':'CAN_H','f-db9a:2':'CAN_L','f-f103:CN10-21':'F103_TX','f-f103:CN10-33':'F103_RX','f-max:RTX':'RS232_TX','f-max:RRX':'RS232_RX'};
+function nameNet(m){function has(re){return m.some(function(p){return re.test(p)})}
+ if(has(/-tb:T[5-9]$/)||has(/:(GND|GND2|GNDd|SG|G|RG)$/)||has(/:(CN7-(8|19|20|22)|CN10-9)$/)||has(/(db9a:3|db9b:5|j[12]:A2|j1:B2|btn:[12]b)$/))return 'GND';
+ if(has(/power:FIN$/))return '+5V_IN';if(has(/-tb:T[1-4]$/))return '+5V';if(has(/-tb:T10$/))return '+12V';
+ if(has(/^l-relay4:NO1$/))return '+5V_SW';if(has(/^f-relay2:NC1$/))return '+5V_SW1';if(has(/^f-relay2:NC2$/))return '+5V_SW2';
+ if(has(/^l-ina226:IN-$/))return '+5V_DUT';if(has(/^l-j1:A1$/))return '+5V_DUT';if(has(/^f-ina1:IN-$/))return '+5V_N1';if(has(/^f-ina2:IN-$/))return '+5V_N2';
+ if(has(/^l-relay4:NO2$/))return '+12V_SW';if(has(/ina240:S2$/))return 'MOTOR+';if(has(/:LOAD$/))return 'MOTOR−';
+ if(has(/^l-dut:(CN7-16|CN6-4)$/))return '+3V3_DUT';if(has(/^f-n1:(CN7-16|CN6-4|CN7-5)$/))return '+3V3_N1';if(has(/^f-n2:(CN7-16|CN6-4)$/))return '+3V3_N2';if(has(/^f-f103:CN7-16$/))return '+3V3_F103';if(has(/^l-f746:3V3$/))return '+3V3_BENCH';
+ for(var i=0;i<m.length;i++)if(PINNET[m[i]])return PINNET[m[i]];return 'NET'}
+Object.keys(NETS).forEach(function(r){var nm=nameNet(NETS[r]);NETS[r].forEach(function(p){NETOF[p]=nm})});
+/* 핀 → 같은 넷의 다른 핀들(선으로 직접 이어진 상대) */
+var PEERS={};WIRES.forEach(function(w,i){if(CABLE.test(w[2]))return;var a=norm(w[0]),b=norm(w[1]);(PEERS[a]=PEERS[a]||[]).push([b,i]);(PEERS[b]=PEERS[b]||[]).push([a,i])});
+function pinText(k){var s=k.split(':'),id=s[0],p=s[1];if(/^(l-dut|f-n1|f-n2|f-f103)$/.test(id)&&MORPHO[p])return p+' '+(id==='f-f103'?{'CN7-6':'E5V','CN7-8':'GND','CN7-16':'3V3','CN7-20':'GND','CN10-21':'PA9','CN10-33':'PA10'}[p]:MORPHO[p]);if(id==='l-f746'&&F746[p])return p+' '+F746[p];
+ return {'J5+':'5V +','J5-':'5V −','J12+':'12V +','J12-':'12V −',FIN:'FUSE IN',FOUT:'FUSE OUT','JK+':'CN10 +5V','JK-':'CN10 GND','P+':'V+','P-':'V−',SG:'SIG GND',S1:'SHUNT A',S2:'SHUNT B','M+':'M +','M-':'M −','1a':'SW1 a','1b':'SW1 b','2a':'SW2 a','2b':'SW2 b',G:'GND',L:'CANL',H:'CANH',GND2:'GND'}[p]||p}
+function devName(k){var id=k.split(':')[0];return (REF[id]?REF[id]+' ':'')+(NAME[id]||id)}
+
+/* ── 시트 정의 ── */
+var SHEETS=[
+ {t:'연구소 판 · 전원 분배와 모터',cols:[['l-power'],['l-tb'],['l-relay4','l-ina226'],['l-d4184','l-ina240','l-motor']]},
+ {t:'연구소 판 · 시험대 F746과 J2',cols:[['l-canable'],['l-j2'],['l-f746']]},
+ {t:'연구소 판 · DUT와 J1',cols:[['l-la'],['l-j1'],['l-dut'],['l-canpal']]},
+ {t:'현장 판 · 전원 분배와 모터',cols:[['f-power'],['f-tb'],['f-relay2','f-h743'],['f-ina1','f-ina2','f-d4184','f-ina240','f-motor']]},
+ {t:'현장 판 · 노드와 CAN 버스',cols:[['f-db9a'],['f-cp1','f-cp2'],['f-n1','f-n2'],['f-oled','f-btn']]},
+ {t:'현장 판 · F103 옛 장비와 RS-232',cols:[['f-f103'],['f-max'],['f-db9b']]}];
+var PW=230,CH=190,RH=18,HD=34,ST=22,TOP=40;
+var C={body:'#fffbea',line:'#7a1f1f',pin:'#7a1f1f',wire:'#0b6e2e',txt:'#111',num:'#7a1f1f',lab:'#123a8a',pwr:'#b0261f'};
+function pinsOf(id){var out=[];Object.keys(PEERS).forEach(function(k){if(k.split(':')[0]===id)out.push(k)});
+ return out.sort(function(a,b){return a.localeCompare(b,undefined,{numeric:true})})}
+function sheetSVG(sh,si){var col={},pos={},nC=sh.cols.length;sh.cols.forEach(function(c,ci){c.forEach(function(id){col[id]=ci})});
+ var sides={};
+ sh.cols.forEach(function(c,ci){c.forEach(function(id){pinsOf(id).forEach(function(k){var pc=(PEERS[k]||[]).map(function(q){return col[q[0].split(':')[0]]}).filter(function(v){return v!==undefined&&v!==ci});
+   var r=pc.some(function(v){return v>ci}),l=pc.some(function(v){return v<ci});sides[k]=r&&!l?'R':l&&!r?'L':(r&&l?(pc.filter(function(v){return v>ci}).length>=pc.filter(function(v){return v<ci}).length?'R':'L'):(ci<(nC-1)/2?'R':'L'))})})});
+ var order={};var PY={};
+ function layout(){sh.cols.forEach(function(c,ci){var y=TOP;c.forEach(function(id){var ps=pinsOf(id),L=ps.filter(function(k){return sides[k]==='L'}),R=ps.filter(function(k){return sides[k]==='R'});
+   function srt(arr){return arr.sort(function(a,b){function key(k){var t=(PEERS[k]||[]).map(function(q){return PY[q[0]]}).filter(function(v){return v!==undefined});return t.length?t.reduce(function(s,v){return s+v},0)/t.length:(order[k]||0)}return key(a)-key(b)})}
+   L=srt(L);R=srt(R);var h=HD+Math.max(L.length,R.length,1)*RH+8,x=24+ST+ci*(PW+CH);pos[id]={x:x,y:y,h:h,L:L,R:R};
+   L.forEach(function(k,i){PY[k]=y+HD+i*RH+RH/2;order[k]=i});R.forEach(function(k,i){PY[k]=y+HD+i*RH+RH/2;order[k]=i});y+=h+46})})}
+ layout();layout();layout();
+ var W=24+ST+nC*PW+(nC-1)*CH+ST+24,H=0;Object.keys(pos).forEach(function(id){H=Math.max(H,pos[id].y+pos[id].h)});H=Math.max(H+30,300)+70;
+ var g='',lanes={};
+ function pinXY(k){var id=k.split(':')[0],p=pos[id],s=sides[k];return [s==='L'?p.x-ST:p.x+PW+ST,PY[k],s]}
+ /* 직접 연결: 2핀 넷, 이웃 열, 마주보는 방향 */
+ var direct={},netMembers={};Object.keys(NETS).forEach(function(r){NETS[r].forEach(function(p){netMembers[p]=NETS[r]})});
+ Object.keys(NETS).forEach(function(r){var m=NETS[r];if(m.length!==2)return;var a=m[0],b=m[1],ca=col[a.split(':')[0]],cb=col[b.split(':')[0]];if(ca===undefined||cb===undefined)return;if(cb<ca){var t=a;a=b;b=t;t=ca;ca=cb;cb=t}
+   if(cb-ca!==1||sides[a]!=='R'||sides[b]!=='L')return;var ch=ca;lanes[ch]=(lanes[ch]||0)+1;var lane=lanes[ch];if(lane>(CH-30)/6)return;direct[a]=direct[b]=1;
+   var A=pinXY(a),B=pinXY(b),lx=A[0]+12+((lane*6)%(CH-30));g+='<path d="M'+A[0]+' '+A[1]+'H'+lx+'V'+B[1]+'H'+B[0]+'" fill="none" stroke="'+C.wire+'" stroke-width="1.3"/>'});
+ /* 부품 */
+ Object.keys(pos).forEach(function(id){var p=pos[id];
+  g+='<rect x="'+p.x+'" y="'+p.y+'" width="'+PW+'" height="'+p.h+'" fill="'+C.body+'" stroke="'+C.line+'" stroke-width="1.6"/>';
+  g+='<text x="'+(p.x+8)+'" y="'+(p.y+15)+'" font-size="12" font-weight="700" fill="'+C.txt+'" font-family="IBM Plex Mono,monospace">'+esc(REF[id]||'')+'</text>';
+  g+='<text x="'+(p.x+PW-8)+'" y="'+(p.y+15)+'" font-size="11.5" text-anchor="end" fill="'+C.txt+'" font-family="IBM Plex Sans KR,sans-serif">'+esc(NAME[id]||id)+'</text>';
+  g+='<line x1="'+p.x+'" y1="'+(p.y+22)+'" x2="'+(p.x+PW)+'" y2="'+(p.y+22)+'" stroke="'+C.line+'" stroke-width="0.6"/>';
+  [['L',p.L],['R',p.R]].forEach(function(sd){sd[1].forEach(function(k){var y=PY[k],L=sd[0]==='L',x0=L?p.x-ST:p.x+PW,x1=L?p.x:p.x+PW+ST,txt=pinText(k),net=NETOF[k];
+    g+='<line x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" stroke="'+C.pin+'" stroke-width="1.3"/>';
+    g+='<text x="'+(L?p.x+6:p.x+PW-6)+'" y="'+(y+4)+'" font-size="11" text-anchor="'+(L?'start':'end')+'" fill="'+C.txt+'" font-family="IBM Plex Mono,monospace">'+esc(txt)+'</text>';
+    if(!direct[k]){var ex=L?x0:x1,dir=L?-1:1;
+      if(net==='GND'){g+='<path d="M'+ex+' '+y+'h'+(dir*8)+'m0 -6v12m'+(dir*3)+' -9v6m'+(dir*3)+' -4.5v3" fill="none" stroke="'+C.pwr+'" stroke-width="1.3"/>'}
+      else if(net.charAt(0)==='+'){g+='<path d="M'+ex+' '+y+'h'+(dir*8)+'m0 -6v12" fill="none" stroke="'+C.pwr+'" stroke-width="1.6"/><text x="'+(ex+dir*12)+'" y="'+(y+4)+'" font-size="11" font-weight="600" text-anchor="'+(L?'end':'start')+'" fill="'+C.pwr+'" font-family="IBM Plex Mono,monospace">'+esc(net)+'</text>'}
+      else{var tw=net.length*6.7+10,fx=L?ex-tw-6:ex;g+='<path d="M'+ex+' '+y+(L?'l-6 -7h-'+tw+'v14h'+tw+'z':'l6 -7h'+tw+'v14h-'+tw+'z')+'" fill="#fff" stroke="'+C.lab+'" stroke-width="1"/><text x="'+(L?ex-6-tw/2:ex+6+tw/2)+'" y="'+(y+4)+'" font-size="11" text-anchor="middle" fill="'+C.lab+'" font-family="IBM Plex Mono,monospace">'+esc(net)+'</text>'}}})})});
+ /* 타이틀 블록 */
+ var tx=W-330,ty=H-62;g+='<rect x="8" y="8" width="'+(W-16)+'" height="'+(H-16)+'" fill="none" stroke="#111" stroke-width="1.2"/>';
+ g+='<rect x="'+tx+'" y="'+ty+'" width="322" height="54" fill="#fff" stroke="#111" stroke-width="1.2"/><line x1="'+tx+'" y1="'+(ty+26)+'" x2="'+(tx+322)+'" y2="'+(ty+26)+'" stroke="#111" stroke-width="0.8"/><line x1="'+(tx+236)+'" y1="'+(ty+26)+'" x2="'+(tx+236)+'" y2="'+(ty+54)+'" stroke="#111" stroke-width="0.8"/>';
+ g+='<text x="'+(tx+8)+'" y="'+(ty+18)+'" font-size="12.5" font-weight="700" fill="#111" font-family="IBM Plex Sans KR,sans-serif">'+esc(sh.t)+'</text><text x="'+(tx+8)+'" y="'+(ty+45)+'" font-size="11" fill="#333" font-family="IBM Plex Mono,monospace">시험대 배선 · Rev A · 2026-10-28</text><text x="'+(tx+244)+'" y="'+(ty+45)+'" font-size="11" fill="#333" font-family="IBM Plex Mono,monospace">SHEET '+(si+1)+' / '+SHEETS.length+'</text>';
+ return '<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="min-width:'+Math.round(W*0.74)+'px;max-width:'+W+'px" role="img" aria-label="'+esc(sh.t)+' 회로도">'+g+'</svg>'}
+function pinTable(sh){var rows='';sh.cols.forEach(function(c){c.forEach(function(id){pinsOf(id).forEach(function(k){var e=ev(k),pe=(PEERS[k]||[]),lv=e[0];
+   var to=pe.map(function(q){return devName(q[0])+' · '+pinText(q[0])}).join('<br>');pe.forEach(function(q){lv=worst(lv,ev(q[0])[0])});
+   rows+='<tr><td class="m">'+esc(REF[id]||'')+'</td><td class="m">'+esc(pinText(k))+'</td><td class="m">'+esc(NETOF[k])+'</td><td>'+to+'</td><td><span class="src">'+esc(e[1])+srcTag(e)+'</span></td><td><span class="lv '+lv+'">'+lv+'</span></td></tr>'})})});
+ return '<div class="tw"><table><thead><tr><th>부품</th><th>핀</th><th>넷</th><th>연결 대상</th><th>근거 (이 핀)</th><th>등급</th></tr></thead><tbody>'+rows+'</tbody></table></div>'}
+var html='',toc='';SHEETS.forEach(function(sh,i){var id='sheet'+(i+1);toc+='<a href="#'+id+'">'+(i+1)+'. '+esc(sh.t)+'</a>';
+ html+='<section class="sheet" id="'+id+'"><div class="hd"><h2>'+(i+1)+'. '+esc(sh.t)+'</h2><span>SHEET '+(i+1)+' / '+SHEETS.length+'</span></div><div class="sv">'+sheetSVG(sh,i)+'</div><details><summary>핀 설명표</summary>'+pinTable(sh)+'</details></section>'});
+document.getElementById('toc').innerHTML=toc;document.getElementById('sheets').innerHTML=html;
+var cr='<thead><tr><th>종류</th><th>출발</th><th>도착</th><th>메모</th></tr></thead><tbody>';WIRES.forEach(function(w){if(!CABLE.test(w[2]))return;cr+='<tr><td>'+{wu:'USB',wd:'DC 어댑터',wn:'LAN',rb:'2x5 리본 30cm'}[w[2]]+'</td><td>'+esc(devName(w[0]))+'</td><td>'+esc(devName(w[1]))+'</td><td>'+esc(w[3])+'</td></tr>'});
+document.getElementById('cables').innerHTML=cr+'</tbody>';
+document.getElementById('srcs').innerHTML=SRCN.map(function(k){return '<li>'+esc(SRC[k][0])+' — <a href="'+SRC[k][1]+'" target="_blank" rel="noopener">'+esc(SRC[k][1].replace(/^https?:\/\//,''))+'</a></li>'}).join('');
+</script>
+</body></html>

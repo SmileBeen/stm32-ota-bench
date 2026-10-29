@@ -1,0 +1,71 @@
+site_name: STM32 서명 OTA 시험대
+site_description: 현장 로그 → 연구소 재현 → 서명 OTA까지, 영상 보며 따라 하는 펌웨어 보안 프로젝트
+site_url: https://smilebeen.github.io/stm32-ota-bench/     # ← 본인 계정/레포 이름으로 바꾸기
+repo_url: https://github.com/SmileBeen/stm32-ota-bench     # ← 같이 바꾸기
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: ko
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.action.edit
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: deep orange
+      toggle: { icon: material/weather-night, name: 어두운 화면 }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: deep orange
+      toggle: { icon: material/weather-sunny, name: 밝은 화면 }
+
+plugins:
+  - search
+  - blog:
+      blog_dir: blog
+      post_url_format: "{date}/{slug}"
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc: { permalink: true }
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist: { custom_checkbox: true }
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - 홈: index.md
+  - 시작하기:
+      - 부품 목록: start/parts.md
+      - 안전 수칙: start/safety.md
+      - 개발 환경: start/dev-env.md
+      - 촬영·작업 환경: start/workspace.md
+  - 회차:
+      - episodes/index.md
+      - EP01 왜 이 프로젝트를 하나: episodes/ep01.md
+  - 시험대:
+      - bench/index.md
+  - 개발 일지:
+      - blog/index.md

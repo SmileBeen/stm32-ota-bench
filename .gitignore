@@ -1,0 +1,10 @@
+site/
+__pycache__/
+.venv/
+Debug/
+Release/
+build/
+*.o
+*.elf
+*.map
+.DS_Store
